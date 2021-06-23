@@ -7,6 +7,7 @@ group = "com.ikanoshiokara"
 version = "1.0.0"
 
 repositories {
+    google()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     maven("https://dl.bintray.com/korlibs/korlibs")
@@ -27,17 +28,24 @@ kotlin {
         }
         binaries.executable()
     }
+
     sourceSets {
-        val jsMain by getting {
+        val decomposeVersion = "0.2.6"
+
+        named("jsMain") {
             dependencies {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
+
+
             }
         }
-        commonMain {
-            dependencies {
-                val klockVersion = "2.0.7"
-                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
+
+        commonMain{
+            dependencies{
+                //Decompose
+                implementation("com.arkivanov.decompose:decompose:${decomposeVersion}")
+                //implementation("com.arkivanov.decompose:extensions-compose-jetbrains:${decomposeVersion}")
             }
         }
     }
